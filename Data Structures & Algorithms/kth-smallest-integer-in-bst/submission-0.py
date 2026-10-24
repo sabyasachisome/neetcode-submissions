@@ -1,3 +1,4 @@
+import heapq
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,14 +8,12 @@
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        self.arr=[]
-        def collect_nodes(node):
+        arr=[]
+        def dfs(node):
             if not node:
                 return
-            
-            self.arr.append(node.val)
-
-            collect_nodes(node.left)
-            collect_nodes(node.right)
-        collect_nodes(root)
-        return sorted(self.arr)[k-1]
+            dfs(node.left)
+            arr.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        return arr[k-1]
